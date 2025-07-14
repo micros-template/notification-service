@@ -42,5 +42,9 @@ image_build:
     DOCKER_DRIVER: overlay2
   script:
     - apk add --no-cache docker
+    - apk add --no-cache git
+    - go env -w GOPRIVATE="10.1.20.130/*"
+    - go env -w GOINSECURE="10.1.20.130/*"
+    - git config --global url."http://$DROPPING_READ_TOKEN@10.1.20.130/".insteadOf "https://10.1.20.130/"
     - chmod +x ./bin/build.sh
     - ./bin/build.sh
