@@ -9,7 +9,7 @@ wait
 
 VERSION=$(cat VERSION)
 echo "Building Docker image for $service_name:$VERSION" >/dev/stderr
-docker build -t "$service_name:$VERSION" --build-arg BIN_NAME=$service_name -f ../Dockerfile ../
+docker build -t "$service_name:$VERSION" --build-arg BIN_NAME=$service_name -f Dockerfile .
 
 registry_image="$CI_REGISTRY_IMAGE:$VERSION"
 echo "Tagging image as $registry_image" >/dev/stderr
