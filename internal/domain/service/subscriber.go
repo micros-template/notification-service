@@ -1,8 +1,8 @@
 package service
 
 import (
-	"github.com/dropboks/notification-service/internal/infrastructure/mail"
-	mq "github.com/dropboks/notification-service/internal/infrastructure/message-queue"
+	"10.1.20.130/dropping/notification-service/internal/infrastructure/mail"
+	mq "10.1.20.130/dropping/notification-service/internal/infrastructure/message-queue"
 	"github.com/dropboks/sharedlib/dto"
 	"github.com/rs/zerolog"
 	"github.com/spf13/viper"

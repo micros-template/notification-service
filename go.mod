@@ -1,4 +1,4 @@
-module github.com/dropboks/notification-service
+module 10.1.20.130/dropping/notification-service
 
 go 1.24.2
 

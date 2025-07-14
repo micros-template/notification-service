@@ -1,8 +1,8 @@
 package bootstrap
 
 import (
-	"github.com/dropboks/notification-service/cmd/di"
-	"github.com/dropboks/notification-service/config/env"
+	"10.1.20.130/dropping/notification-service/cmd/di"
+	"10.1.20.130/dropping/notification-service/config/env"
 	"go.uber.org/dig"
 )
 

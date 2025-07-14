@@ -1,13 +1,13 @@
 package di
 
 import (
-	"github.com/dropboks/notification-service/config/logger"
-	mail "github.com/dropboks/notification-service/config/mail"
-	mq "github.com/dropboks/notification-service/config/message-queue"
-	"github.com/dropboks/notification-service/internal/domain/handler"
-	"github.com/dropboks/notification-service/internal/domain/service"
-	_mail "github.com/dropboks/notification-service/internal/infrastructure/mail"
-	_mq "github.com/dropboks/notification-service/internal/infrastructure/message-queue"
+	"10.1.20.130/dropping/notification-service/config/logger"
+	mail "10.1.20.130/dropping/notification-service/config/mail"
+	mq "10.1.20.130/dropping/notification-service/config/message-queue"
+	"10.1.20.130/dropping/notification-service/internal/domain/handler"
+	"10.1.20.130/dropping/notification-service/internal/domain/service"
+	_mail "10.1.20.130/dropping/notification-service/internal/infrastructure/mail"
+	_mq "10.1.20.130/dropping/notification-service/internal/infrastructure/message-queue"
 	"github.com/nats-io/nats.go/jetstream"
 	"go.uber.org/dig"
 )

@@ -4,8 +4,8 @@ import (
 	"context"
 	"log"
 
-	"github.com/dropboks/notification-service/internal/domain/handler"
-	mq "github.com/dropboks/notification-service/internal/infrastructure/message-queue"
+	"10.1.20.130/dropping/notification-service/internal/domain/handler"
+	mq "10.1.20.130/dropping/notification-service/internal/infrastructure/message-queue"
 	"github.com/nats-io/nats.go"
 	"github.com/nats-io/nats.go/jetstream"
 	"github.com/rs/zerolog"

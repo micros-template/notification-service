@@ -6,8 +6,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/dropboks/notification-service/cmd/bootstrap"
-	"github.com/dropboks/notification-service/cmd/server"
+	"10.1.20.130/dropping/notification-service/cmd/bootstrap"
+	"10.1.20.130/dropping/notification-service/cmd/server"
 )
 
 func main() {
@@ -28,7 +28,7 @@ func main() {
 	<-subscriberReady
 
 	sig := make(chan os.Signal, 1)
-	signal.Notify(sig,	 os.Interrupt, syscall.SIGHUP, syscall.SIGINT, syscall.SIGQUIT, syscall.SIGABRT, syscall.SIGTERM)
+	signal.Notify(sig, os.Interrupt, syscall.SIGHUP, syscall.SIGINT, syscall.SIGQUIT, syscall.SIGABRT, syscall.SIGTERM)
 	<-sig
 
 	<-subscriberDone

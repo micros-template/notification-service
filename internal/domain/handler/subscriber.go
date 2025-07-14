@@ -3,7 +3,7 @@ package handler
 import (
 	"encoding/json"
 
-	"github.com/dropboks/notification-service/internal/domain/service"
+	"10.1.20.130/dropping/notification-service/internal/domain/service"
 	"github.com/dropboks/sharedlib/dto"
 	"github.com/nats-io/nats.go/jetstream"
 	"github.com/rs/zerolog"
