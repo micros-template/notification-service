@@ -19,4 +19,4 @@ echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token --password-stdin "$CI_REG
 docker push "$registry_image"
 
 echo "removing dist folder in local" >/dev/stderr
-rm -r dist
+rm -r .bin/dist
