@@ -6,7 +6,7 @@ stages:
 
 go_mod_download:
   stage: setup
-  image: golang:1.24
+  image: golang:1.24-alpine3.22
   script:
     - go env -w GOPRIVATE="10.1.20.130/*"
     - go env -w GOINSECURE="10.1.20.130/*"
@@ -15,7 +15,7 @@ go_mod_download:
 
 staticcheck:
   stage: lint
-  image: golang:1.24
+  image: golang:1.24-alpine3.22
   script:
     - go install honnef.co/go/tools/cmd/staticcheck@latest
     - staticcheck ./...
