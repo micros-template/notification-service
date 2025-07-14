@@ -37,10 +37,10 @@ image_build:
   stage: build
   image: golang:1.24-alpine3.22
   services:
-    - docker:dind
+    - name: docker:dind
+      command: ["--insecure-registry=10.1.20.130:5001"] 
   variables:
     DOCKER_DRIVER: overlay2
-    command: "--insecure-registry=10.1.20.130:5001"
   script:
     - apk add --no-cache docker
     - apk add --no-cache git

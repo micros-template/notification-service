@@ -17,6 +17,3 @@ docker tag "$service_name:$VERSION" "$registry_image"
 
 echo "$CI_JOB_TOKEN" | docker login -u gitlab-ci-token --password-stdin "$CI_REGISTRY"
 docker push "$registry_image"
-
-echo "removing dist folder in local" >/dev/stderr
-rm -r .bin/dist
