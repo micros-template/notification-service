@@ -1,0 +1,31 @@
+nats:
+  protocol: "nats"
+  address: "localhost"
+  port: "4221"
+  credential:
+    user: 
+    password: 
+  connection_name: 
+  timeout: 
+  
+jetstream:
+  stream: 
+    name: 
+    description: 
+  consumer:
+    notif: 
+    mail: 
+  subject:
+    global: 
+    notif: 
+    mail: 
+
+mail:
+  host: 
+  port:  
+  username: 
+  password: 
+  sender: 
+  html_root_dir: "./template"
+
+

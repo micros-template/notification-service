@@ -1,0 +1,29 @@
+nats:
+  protocol: "nats"
+  address: "nats"
+  port: "4221"
+  credential:
+    user: "user_test"
+    password: "password_test"
+  connection_name: "notification_service_conn_test"
+  timeout: 10
+
+jetstream:
+  stream: 
+    name: "notification_stream_test"
+    description: "this is notification stream"
+  consumer:
+    notif: "notification_consumer_test"
+    mail: "email_consumer_test"
+  subject:
+    global: "test_notif.>"
+    notif: "test_notif.simple.*"
+    mail: "test_notif.email.*"
+
+mail:
+  host: "mailhog"
+  port: 1025
+  username: ""
+  password: ""
+  sender: "dropboks@daffapn.my.id"
+  html_root_dir: "./template"
