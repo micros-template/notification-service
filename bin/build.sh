@@ -4,7 +4,7 @@ mkdir -p ./dist
 
 service_name="notification_service"
 
-CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o "./dist/$service_name" ../cmd/
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o "bin/dist/$service_name" cmd/
 wait
 
 VERSION=$(cat VERSION)
