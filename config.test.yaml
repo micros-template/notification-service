@@ -1,6 +1,6 @@
 nats:
   protocol: "nats"
-  address: "nats"
+  address: "test_nats"
   port: "4221"
   credential:
     user: "user_test"
