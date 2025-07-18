@@ -11,7 +11,7 @@ import (
 
 type (
 	SubscriberHandler interface {
-		EmailHandler(msg jetstream.Msg)
+		EmailHandler(msg jetstream.Msg) error
 	}
 	subscriberHandler struct {
 		subsService service.SubscriberService
@@ -26,14 +26,16 @@ func NewSubscriberHandler(svc service.SubscriberService, logger zerolog.Logger) 
 	}
 }
 
-func (s *subscriberHandler) EmailHandler(msg jetstream.Msg) {
+func (s *subscriberHandler) EmailHandler(msg jetstream.Msg) error {
 	var msgData dto.MailNotificationMessage
 	err := json.Unmarshal(msg.Data(), &msgData)
 	if err != nil {
 		s.logger.Error().Err(err).Msg("error unmarshal")
-		return
+		return err
 	}
 	if err = s.subsService.SendEmail(msgData); err != nil {
 		s.logger.Error().Err(err).Msg("failed to send email")
+		return err
 	}
+	return nil
 }
