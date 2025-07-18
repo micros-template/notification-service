@@ -12,6 +12,7 @@ type (
 	Nats interface {
 		CreateOrUpdateNewConsumer(ctx context.Context, streamName string, jsConfig *jetstream.ConsumerConfig) (jetstream.Consumer, error)
 		CreateOrUpdateNewStream(ctx context.Context, jsConfig *jetstream.StreamConfig) error
+		Publish(ctx context.Context, subject string, payload []byte) (*jetstream.PubAck, error)
 	}
 	natsInstance struct {
 		nc     *nats.Conn
@@ -48,4 +49,12 @@ func (n *natsInstance) CreateOrUpdateNewStream(ctx context.Context, jsConfig *je
 		return err
 	}
 	return nil
+}
+
+func (n *natsInstance) Publish(ctx context.Context, subject string, payload []byte) (*jetstream.PubAck, error) {
+	ack, err := n.js.Publish(ctx, subject, payload)
+	if err != nil {
+		return nil, err
+	}
+	return ack, nil
 }
