@@ -1,8 +1,9 @@
 package service
 
 import (
+	"errors"
+
 	"10.1.20.130/dropping/notification-service/internal/infrastructure/mail"
-	mq "10.1.20.130/dropping/notification-service/internal/infrastructure/message-queue"
 	"github.com/dropboks/sharedlib/dto"
 	"github.com/rs/zerolog"
 	"github.com/spf13/viper"
@@ -13,17 +14,15 @@ type (
 		SendEmail(msg dto.MailNotificationMessage) error
 	}
 	subscriberService struct {
-		logger       zerolog.Logger
-		natsInstance mq.Nats
-		mail         mail.Mail
+		logger zerolog.Logger
+		mail   mail.Mail
 	}
 )
 
-func NewSubscriberService(natsIntance mq.Nats, logger zerolog.Logger, mail mail.Mail) SubscriberService {
+func NewSubscriberService(logger zerolog.Logger, mail mail.Mail) SubscriberService {
 	return &subscriberService{
-		logger:       logger,
-		natsInstance: natsIntance,
-		mail:         mail,
+		logger: logger,
+		mail:   mail,
 	}
 }
 
@@ -82,6 +81,8 @@ func (s *subscriberService) SendEmail(msg dto.MailNotificationMessage) error {
 			s.logger.Error().Err(err).Msg("error set body html")
 			return err
 		}
+	default:
+		return errors.New("type not supported")
 	}
 
 	if err := s.mail.Send(); err != nil {
