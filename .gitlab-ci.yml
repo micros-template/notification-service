@@ -2,6 +2,7 @@ stages:
   - lint
   - test
   - build
+  - post-pipeline
   - deploy
 
 staticcheck:
