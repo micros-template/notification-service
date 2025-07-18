@@ -1,6 +1,7 @@
 nats:
   protocol: "nats"
   address: "test_nats"
+  test_address: "localhost"
   port: "4221"
   credential:
     user: "user_test"
@@ -19,6 +20,8 @@ jetstream:
     global: "test_notif.>"
     notif: "test_notif.simple.*"
     mail: "test_notif.email.*"
+  client:
+    mail: "test_notif.email"
 
 mail:
   host: "mailhog"
@@ -27,3 +30,13 @@ mail:
   password: ""
   sender: "dropboks@daffapn.my.id"
   html_root_dir: "./template"
+
+
+container:
+  notification_service_version: "test"
+  gateway_version: "1.28.0-alpine-slim"
+  nats_version: "2.11.6"
+  mailhog_version: "v1.0.1"
+
+script:
+  nats_server: "../mocks/nats/nats-server.conf"
