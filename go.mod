@@ -13,7 +13,7 @@ require (
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 )
 
-replace github.com/dropboks/sharedlib => 10.1.20.130/dropping/sharedlib v0.0.0-20250718021202-2af6aa6922f2
+replace github.com/dropboks/sharedlib => 10.1.20.130/dropping/sharedlib v0.0.0-20250805042116-4188cd9056be
 
 require (
 	dario.cat/mergo v1.0.2 // indirect
