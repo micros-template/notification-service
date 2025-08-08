@@ -56,7 +56,7 @@ func (s *Subscriber) Run(ctx context.Context) {
 
 		_, err = emailCons.Consume(func(msg jetstream.Msg) {
 			logEmitter.EmitLog(context.Background(), ld.LogMessage{
-				Type:     "access",
+				Type:     "INFO",
 				Service:  "notification_service",
 				Msg:      string(msg.Data()),
 				Protocol: "PUB-SUB",
