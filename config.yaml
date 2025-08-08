@@ -7,25 +7,31 @@ nats:
     password: "strong_password123"
   connection_name: "notification_service_conn"
   timeout: 10
-  
+
 jetstream:
-  stream: 
-    name: "notification_stream"
-    description: "this is notification stream"
-  consumer:
-    notif: "notification_consumer"
-    mail: "email_consumer"
-  subject:
-    global: "notification.>"
-    notif: "notification.simple.*"
-    mail: "notification.email.*"
+  notification:
+    stream:
+      name: "notification_stream"
+      description: "this is notification stream"
+    consumer:
+      notif: "notification_consumer"
+      mail: "email_consumer"
+    subject:
+      global: "notification.>"
+      notif: "notification.simple.*"
+      mail: "notification.email.*"
+  log:
+    stream:
+      name: "log_stream"
+      description: "this is log stream"
+    subject:
+      global: "log.>"
+      prefix: "log"
 
 mail:
   host: "smtp-relay.brevo.com"
-  port: 587 
+  port: 587
   username: "904553001@smtp-brevo.com"
   password: "1zMNTqxYtkQPpOnD"
   sender: "dropboks@daffapn.my.id"
   html_root_dir: "./template"
-
-

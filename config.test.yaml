@@ -10,18 +10,26 @@ nats:
   timeout: 10
 
 jetstream:
-  stream: 
-    name: "notification_stream_test"
-    description: "this is notification stream"
-  consumer:
-    notif: "notification_consumer_test"
-    mail: "email_consumer_test"
-  subject:
-    global: "test_notif.>"
-    notif: "test_notif.simple.*"
-    mail: "test_notif.email.*"
-  client:
-    mail: "test_notif.email"
+  notification:
+    stream:
+      name: "notification_stream_test"
+      description: "this is notification stream"
+    consumer:
+      notif: "notification_consumer_test"
+      mail: "email_consumer_test"
+    subject:
+      global: "test_notif.>"
+      notif: "test_notif.simple.*"
+      mail: "test_notif.email.*"
+    client:
+      mail: "test_notif.email"
+  log:
+    stream:
+      name: "log_stream"
+      description: "this is log stream"
+    subject:
+      global: "log.>"
+      prefix: "log"
 
 mail:
   host: "mailhog"
@@ -30,7 +38,6 @@ mail:
   password: ""
   sender: "dropboks@daffapn.my.id"
   html_root_dir: "./template"
-
 
 container:
   notification_service_version: "test"

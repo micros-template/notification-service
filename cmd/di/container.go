@@ -1,6 +1,7 @@
 package di
 
 import (
+	logemitter "10.1.20.130/dropping/notification-service/config/log_emitter"
 	"10.1.20.130/dropping/notification-service/config/logger"
 	mail "10.1.20.130/dropping/notification-service/config/mail"
 	mq "10.1.20.130/dropping/notification-service/config/message-queue"
@@ -42,6 +43,9 @@ func BuildContainer() *dig.Container {
 	// subscriber service
 	if err := container.Provide(service.NewSubscriberService); err != nil {
 		panic("Failed to provide subscriber service " + err.Error())
+	}
+	if err := container.Provide(logemitter.NewInfraLogEmitter); err != nil {
+		panic("Failed to provide log emitter " + err.Error())
 	}
 	// subscriber handler
 	if err := container.Provide(handler.NewSubscriberHandler); err != nil {

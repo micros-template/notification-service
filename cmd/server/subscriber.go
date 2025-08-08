@@ -4,6 +4,8 @@ import (
 	"context"
 	"log"
 
+	"10.1.20.130/dropping/log-management/pkg"
+	ld "10.1.20.130/dropping/log-management/pkg/dto"
 	"10.1.20.130/dropping/notification-service/internal/domain/handler"
 	mq "10.1.20.130/dropping/notification-service/internal/infrastructure/message-queue"
 	"github.com/nats-io/nats.go"
@@ -25,12 +27,13 @@ func (s *Subscriber) Run(ctx context.Context) {
 		js jetstream.JetStream,
 		mq mq.Nats,
 		_mq *nats.Conn,
+		logEmitter pkg.LogEmitter,
 	) {
 		defer _mq.Drain()
 		err := mq.CreateOrUpdateNewStream(ctx, &jetstream.StreamConfig{
-			Name:        viper.GetString("jetstream.stream.name"),
-			Description: viper.GetString("jetstream.stream.description"),
-			Subjects:    []string{viper.GetString("jetstream.subject.global")},
+			Name:        viper.GetString("jetstream.notification.stream.name"),
+			Description: viper.GetString("jetstream.notification.stream.description"),
+			Subjects:    []string{viper.GetString("jetstream.notification.subject.global")},
 			MaxBytes:    10 * 1024 * 1024,
 			Storage:     jetstream.FileStorage,
 		})
@@ -39,10 +42,10 @@ func (s *Subscriber) Run(ctx context.Context) {
 		}
 
 		// consumer for email
-		emailCons, err := mq.CreateOrUpdateNewConsumer(ctx, viper.GetString("jetstream.stream.name"), &jetstream.ConsumerConfig{
-			Name:          viper.GetString("jetstream.consumer.mail"),
-			Durable:       viper.GetString("jetstream.consumer.mail"),
-			FilterSubject: viper.GetString("jetstream.subject.mail"),
+		emailCons, err := mq.CreateOrUpdateNewConsumer(ctx, viper.GetString("jetstream.notification.stream.name"), &jetstream.ConsumerConfig{
+			Name:          viper.GetString("jetstream.notification.consumer.mail"),
+			Durable:       viper.GetString("jetstream.notification.consumer.mail"),
+			FilterSubject: viper.GetString("jetstream.notification.subject.mail"),
 			AckPolicy:     jetstream.AckExplicitPolicy,
 			DeliverPolicy: jetstream.DeliverNewPolicy,
 		})
@@ -52,9 +55,12 @@ func (s *Subscriber) Run(ctx context.Context) {
 		}
 
 		_, err = emailCons.Consume(func(msg jetstream.Msg) {
-			logger.Info().
-				Str("subject", msg.Subject()).
-				Msgf("Received message: %s", string(msg.Data()))
+			logEmitter.EmitLog(context.Background(), ld.LogMessage{
+				Type:     "access",
+				Service:  "notification_service",
+				Msg:      string(msg.Data()),
+				Protocol: "PUB-SUB",
+			})
 			go func() {
 				sh.EmailHandler(msg)
 				msg.Ack()

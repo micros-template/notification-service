@@ -84,9 +84,9 @@ func (e *EmailITSuite) SetupSuite() {
 	}
 	natsInfra := _mq.NewNatsInfrastructure(nc, logger, jetstreamCon)
 	err = natsInfra.CreateOrUpdateNewStream(e.ctx, &jetstream.StreamConfig{
-		Name:        viper.GetString("jetstream.stream.name"),
-		Description: viper.GetString("jetstream.stream.description"),
-		Subjects:    []string{viper.GetString("jetstream.subject.global")},
+		Name:        viper.GetString("jetstream.notification.stream.name"),
+		Description: viper.GetString("jetstream.notification.stream.description"),
+		Subjects:    []string{viper.GetString("jetstream.notification.subject.global")},
 		MaxBytes:    10 * 1024 * 1024,
 		Storage:     jetstream.FileStorage,
 	})
@@ -115,7 +115,7 @@ func TestEmailITSuite(t *testing.T) {
 
 func (e *EmailITSuite) TestEmailIT_Success() {
 	email := fmt.Sprintf("test+%d@example.com", time.Now().UnixNano())
-	subject := fmt.Sprintf("%s.%s", viper.GetString("jetstream.client.mail"), "random-id")
+	subject := fmt.Sprintf("%s.%s", viper.GetString("jetstream.notification.client.mail"), "random-id")
 	msg := dto.MailNotificationMessage{
 		Receiver: []string{email},
 		MsgType:  "OTP",
@@ -134,7 +134,7 @@ func (e *EmailITSuite) TestEmailIT_Success() {
 
 func (e *EmailITSuite) TestEmailIT_ErrorUnmarshal() {
 	email := fmt.Sprintf("test+%d@example.com", time.Now().UnixNano())
-	subject := fmt.Sprintf("%s.%s", viper.GetString("jetstream.client.mail"), "random-id")
+	subject := fmt.Sprintf("%s.%s", viper.GetString("jetstream.notification.client.mail"), "random-id")
 	msg := dto.MailNotificationMessage{
 		Receiver: []string{email},
 		Message:  "123456",
@@ -152,7 +152,7 @@ func (e *EmailITSuite) TestEmailIT_ErrorUnmarshal() {
 
 func (e *EmailITSuite) TestEmailIT_UnsupportedType() {
 	email := fmt.Sprintf("test+%d@example.com", time.Now().UnixNano())
-	subject := fmt.Sprintf("%s.%s", viper.GetString("jetstream.client.mail"), "random-id")
+	subject := fmt.Sprintf("%s.%s", viper.GetString("jetstream.notification.client.mail"), "random-id")
 	msg := dto.MailNotificationMessage{
 		Receiver: []string{email},
 		MsgType:  "not-supported-email-type",
