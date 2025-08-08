@@ -16,7 +16,6 @@ staticcheck:
     - go install honnef.co/go/tools/cmd/staticcheck@latest
     - staticcheck ./...
 
-
 build_test_image:
   stage: test
   image: golang:1.24-alpine3.22
@@ -46,7 +45,6 @@ go_test:
     - chmod +x ./bin/clean-test-image.sh
     - ./bin/clean-test-image.sh
 
-
 image_build:
   stage: build
   image: golang:1.24-alpine3.22
@@ -72,11 +70,11 @@ update_version:
     - VERSION=$(cat VERSION)
     - git clone http://$DROPPING_VERSIONING_TOKEN@10.1.20.130/dropping/versioning.git/
     - cd versioning
-    - yq e '.["notification_service_version"] = "'$VERSION'"' -i version.yaml 
+    - yq e '.["notification_service_version"] = "'$VERSION'"' -i version.yaml
     - git config user.email "ci@local"
     - git config user.name "CI Bot"
     - git add version.yaml
-    - git diff --cached --quiet || git commit -m "Update auth_service_version to $VERSION"
+    - git diff --cached --quiet || git commit -m "Update notification_service_version to $VERSION"
     - git push http://$CI_PROJECT_ROOT_NAMESPACE:$DROPPING_VERSIONING_TOKEN@10.1.20.130/dropping/versioning.git HEAD:main
 
 deployment:
