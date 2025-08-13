@@ -31,6 +31,8 @@ pre-commit:
 	@echo "Running go vet..."
 	@go vet ./... || (echo "[FAIL] go vet failed." && exit 1)
 
+	@echo "Run golangci-lint run..."
+	@~/go/bin/golangci-lint run --timeout=5m
 
 # 	build docker image first to be tested later
 	@echo "build notification-service:test image"

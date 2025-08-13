@@ -29,7 +29,12 @@ func (s *Subscriber) Run(ctx context.Context) {
 		_mq *nats.Conn,
 		logEmitter pkg.LogEmitter,
 	) {
-		defer _mq.Drain()
+
+		defer func() {
+			if err := _mq.Drain(); err != nil {
+				logger.Error().Err(err).Msg("Failed to drain nats client")
+			}
+		}()
 		err := mq.CreateOrUpdateNewStream(ctx, &jetstream.StreamConfig{
 			Name:        viper.GetString("jetstream.notification.stream.name"),
 			Description: viper.GetString("jetstream.notification.stream.description"),
@@ -62,8 +67,12 @@ func (s *Subscriber) Run(ctx context.Context) {
 				Protocol: "PUB-SUB",
 			})
 			go func() {
-				sh.EmailHandler(msg)
-				msg.Ack()
+				if err := sh.EmailHandler(msg); err != nil {
+					logger.Error().Err(err).Msg("Error handling email message")
+				}
+				if err := msg.Ack(); err != nil {
+					logger.Error().Err(err).Msg("Error acknowledging message")
+				}
 			}()
 		})
 

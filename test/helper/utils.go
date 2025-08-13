@@ -42,7 +42,9 @@ func RetrieveDataFromEmail(email, regex, types string, t *testing.T) string {
 
 		mailhogResp.Total = 0
 		err = json.NewDecoder(resp.Body).Decode(&mailhogResp)
-		resp.Body.Close()
+		if err := resp.Body.Close(); err != nil {
+			t.Errorf("error closing response body: %v", err)
+		}
 		assert.NoError(t, err)
 		if err != nil {
 			time.Sleep(2 * time.Second)
