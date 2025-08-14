@@ -2,11 +2,13 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"log"
 
 	"10.1.20.130/dropping/log-management/pkg"
 	ld "10.1.20.130/dropping/log-management/pkg/dto"
 	"10.1.20.130/dropping/notification-service/internal/domain/handler"
+	"10.1.20.130/dropping/notification-service/internal/infrastructure/logger"
 	mq "10.1.20.130/dropping/notification-service/internal/infrastructure/message-queue"
 	"github.com/nats-io/nats.go"
 	"github.com/nats-io/nats.go/jetstream"
@@ -28,6 +30,7 @@ func (s *Subscriber) Run(ctx context.Context) {
 		mq mq.Nats,
 		_mq *nats.Conn,
 		logEmitter pkg.LogEmitter,
+		logEmitterInfra logger.LoggerInfra,
 	) {
 
 		defer func() {
@@ -43,6 +46,11 @@ func (s *Subscriber) Run(ctx context.Context) {
 			Storage:     jetstream.FileStorage,
 		})
 		if err != nil {
+			go func() {
+				if err := logEmitterInfra.EmitLog("ERR", fmt.Sprintf("Failed to create or update notification stream: %v", err.Error())); err != nil {
+					logger.Error().Err(err).Msg("failed to emit log")
+				}
+			}()
 			logger.Fatal().Err(err).Msg("Failed to create or update notification stream")
 		}
 
@@ -56,27 +64,42 @@ func (s *Subscriber) Run(ctx context.Context) {
 		})
 
 		if err != nil {
+			go func() {
+				if err := logEmitterInfra.EmitLog("ERR", fmt.Sprintf("Failed to create or update mail consumer: %v", err.Error())); err != nil {
+					logger.Error().Err(err).Msg("failed to emit log")
+				}
+			}()
 			logger.Fatal().Err(err).Msg("Failed to create or update mail consumer")
 		}
 
 		_, err = emailCons.Consume(func(msg jetstream.Msg) {
-			logEmitter.EmitLog(context.Background(), ld.LogMessage{
+			if err := logEmitter.EmitLog(context.Background(), ld.LogMessage{
 				Type:     "INFO",
 				Service:  "notification_service",
 				Msg:      string(msg.Data()),
 				Protocol: "PUB-SUB",
-			})
+			}); err != nil {
+				logger.Error().Err(err).Msg("failed to emit log")
+			}
 			go func() {
-				if err := sh.EmailHandler(msg); err != nil {
-					logger.Error().Err(err).Msg("Error handling email message")
-				}
+				_ = sh.EmailHandler(msg)
 				if err := msg.Ack(); err != nil {
+					go func() {
+						if err := logEmitterInfra.EmitLog("ERR", fmt.Sprintf("Error acknowledging message: %v", err.Error())); err != nil {
+							logger.Error().Err(err).Msg("failed to emit log")
+						}
+					}()
 					logger.Error().Err(err).Msg("Error acknowledging message")
 				}
 			}()
 		})
 
 		if err != nil {
+			go func() {
+				if err := logEmitterInfra.EmitLog("ERR", fmt.Sprintf("Failed to consume email consumer: %v", err.Error())); err != nil {
+					logger.Error().Err(err).Msg("failed to emit log")
+				}
+			}()
 			logger.Error().Err(err).Msg("Failed to consume email consumer")
 			return
 		}
@@ -84,9 +107,20 @@ func (s *Subscriber) Run(ctx context.Context) {
 		if s.ConnectionReady != nil {
 			s.ConnectionReady <- true
 		}
-
+		go func() {
+			if err := logEmitterInfra.EmitLog("INFO", fmt.Sprintf("subscriber for notification is running: %v", err.Error())); err != nil {
+				logger.Error().Err(err).Msg("failed to emit log")
+			}
+		}()
 		logger.Info().Msg("subscriber for notification is running")
+
 		<-ctx.Done()
+
+		go func() {
+			if err := logEmitterInfra.EmitLog("INFO", fmt.Sprintf("Shutting down subscriber for notification: %v", err.Error())); err != nil {
+				logger.Error().Err(err).Msg("failed to emit log")
+			}
+		}()
 		logger.Info().Msg("Shutting down subscriber for notification")
 	})
 	if err != nil {

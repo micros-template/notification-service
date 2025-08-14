@@ -2,11 +2,12 @@ package di
 
 import (
 	logemitter "10.1.20.130/dropping/notification-service/config/log_emitter"
-	"10.1.20.130/dropping/notification-service/config/logger"
+	logger "10.1.20.130/dropping/notification-service/config/logger"
 	mail "10.1.20.130/dropping/notification-service/config/mail"
 	mq "10.1.20.130/dropping/notification-service/config/message-queue"
 	"10.1.20.130/dropping/notification-service/internal/domain/handler"
 	"10.1.20.130/dropping/notification-service/internal/domain/service"
+	_logger "10.1.20.130/dropping/notification-service/internal/infrastructure/logger"
 	_mail "10.1.20.130/dropping/notification-service/internal/infrastructure/mail"
 	_mq "10.1.20.130/dropping/notification-service/internal/infrastructure/message-queue"
 	"github.com/nats-io/nats.go/jetstream"
@@ -40,12 +41,17 @@ func BuildContainer() *dig.Container {
 	if err := container.Provide(_mq.NewNatsInfrastructure); err != nil {
 		panic("Failed to provide message queue infra: " + err.Error())
 	}
+	// logemitter config
+	if err := container.Provide(logemitter.NewLogEmitter); err != nil {
+		panic("Failed to provide log emitter " + err.Error())
+	}
+	// log emitter infra
+	if err := container.Provide(_logger.NewLoggerInfra); err != nil {
+		panic("Failed to provide log emitter infra " + err.Error())
+	}
 	// subscriber service
 	if err := container.Provide(service.NewSubscriberService); err != nil {
 		panic("Failed to provide subscriber service " + err.Error())
-	}
-	if err := container.Provide(logemitter.NewInfraLogEmitter); err != nil {
-		panic("Failed to provide log emitter " + err.Error())
 	}
 	// subscriber handler
 	if err := container.Provide(handler.NewSubscriberHandler); err != nil {

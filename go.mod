@@ -3,7 +3,7 @@ module 10.1.20.130/dropping/notification-service
 go 1.24.2
 
 require (
-	10.1.20.130/dropping/log-management v0.0.0-20250807081938-0bbf3995bf59
+	10.1.20.130/dropping/log-management v0.0.0-20250808075433-1d4dd15b3fc7
 	github.com/dropboks/sharedlib v0.0.0-20250711072608-b2ae226cfddf
 	github.com/nats-io/nats.go v1.44.0
 	github.com/rs/zerolog v1.34.0

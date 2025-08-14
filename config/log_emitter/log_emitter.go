@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-func NewInfraLogEmitter(js jetstream.JetStream, zerolog zerolog.Logger) pkg.LogEmitter {
+func NewLogEmitter(js jetstream.JetStream, zerolog zerolog.Logger) pkg.LogEmitter {
 	streamName := viper.GetString("jetstream.log.stream.name")
 	streamDesc := viper.GetString("jetstream.log.stream.description")
 	globalSubject := viper.GetString("jetstream.log.subject.global")

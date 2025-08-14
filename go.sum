@@ -1,5 +1,7 @@
 10.1.20.130/dropping/log-management v0.0.0-20250807081938-0bbf3995bf59 h1:VPdEvfeuOsL1V4huXjBLXQP25KtRUopgWgTG4cwCHAI=
 10.1.20.130/dropping/log-management v0.0.0-20250807081938-0bbf3995bf59/go.mod h1:ItjbqbcyRsCnR/bU7tY9Jsgw2QVM8gnYL4FGFBFl/LY=
+10.1.20.130/dropping/log-management v0.0.0-20250808075433-1d4dd15b3fc7 h1:K2RplNav0GlQV3QbZqUoQdccQHnoukYMIxlx1AvhsO0=
+10.1.20.130/dropping/log-management v0.0.0-20250808075433-1d4dd15b3fc7/go.mod h1:QQuuPF+04g3OYJiIsXCAS/GN0Gm7tvVsJcy9YQ/tluA=
 10.1.20.130/dropping/sharedlib v0.0.0-20250807080415-3baef044f7f4 h1:w6cukmIdsIDSvAD5yVFhvoiHZOvvJteeEwo9e63zzfY=
 10.1.20.130/dropping/sharedlib v0.0.0-20250807080415-3baef044f7f4/go.mod h1:062nH7Z0+c0Wm6rZO5DKMLXlGyVTOMn6WjJ9jPTuTC8=
 dario.cat/mergo v1.0.2 h1:85+piFYR1tMbRrLcDwR18y4UKJ3aH1Tbzi24VRW1TK8=

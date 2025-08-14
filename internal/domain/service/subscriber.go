@@ -86,7 +86,6 @@ func (s *subscriberService) SendEmail(msg dto.MailNotificationMessage) error {
 	}
 
 	if err := s.mail.Send(); err != nil {
-		s.logger.Error().Err(err).Msg("error send email")
 		return err
 	}
 	return nil
