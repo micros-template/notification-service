@@ -4,7 +4,7 @@ go 1.24.2
 
 require (
 	10.1.20.130/dropping/log-management v0.0.0-20250808075433-1d4dd15b3fc7
-	github.com/dropboks/sharedlib v0.0.0-20250711072608-b2ae226cfddf
+	10.1.20.130/dropping/sharedlib v0.0.0-20250807080415-3baef044f7f4
 	github.com/nats-io/nats.go v1.44.0
 	github.com/rs/zerolog v1.34.0
 	github.com/spf13/viper v1.20.1
@@ -13,8 +13,6 @@ require (
 	go.uber.org/dig v1.19.0
 	gopkg.in/gomail.v2 v2.0.0-20160411212932-81ebce5c23df
 )
-
-replace github.com/dropboks/sharedlib => 10.1.20.130/dropping/sharedlib v0.0.0-20250807080415-3baef044f7f4
 
 require (
 	dario.cat/mergo v1.0.2 // indirect

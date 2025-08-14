@@ -10,8 +10,8 @@ import (
 
 	_mq "10.1.20.130/dropping/notification-service/internal/infrastructure/message-queue"
 	"10.1.20.130/dropping/notification-service/test/helper"
-	"github.com/dropboks/sharedlib/dto"
-	_helper "github.com/dropboks/sharedlib/test/helper"
+	"10.1.20.130/dropping/sharedlib/dto"
+	_helper "10.1.20.130/dropping/sharedlib/test/helper"
 	"github.com/nats-io/nats.go"
 	"github.com/nats-io/nats.go/jetstream"
 	"github.com/rs/zerolog"

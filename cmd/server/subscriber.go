@@ -32,7 +32,6 @@ func (s *Subscriber) Run(ctx context.Context) {
 		logEmitter pkg.LogEmitter,
 		logEmitterInfra logger.LoggerInfra,
 	) {
-
 		defer func() {
 			if err := _mq.Drain(); err != nil {
 				logger.Error().Err(err).Msg("Failed to drain nats client")
@@ -73,14 +72,16 @@ func (s *Subscriber) Run(ctx context.Context) {
 		}
 
 		_, err = emailCons.Consume(func(msg jetstream.Msg) {
-			if err := logEmitter.EmitLog(context.Background(), ld.LogMessage{
-				Type:     "INFO",
-				Service:  "notification_service",
-				Msg:      string(msg.Data()),
-				Protocol: "PUB-SUB",
-			}); err != nil {
-				logger.Error().Err(err).Msg("failed to emit log")
-			}
+			go func() {
+				if err := logEmitter.EmitLog(context.Background(), ld.LogMessage{
+					Type:     "INFO",
+					Service:  "notification_service",
+					Msg:      string(msg.Data()),
+					Protocol: "PUB-SUB",
+				}); err != nil {
+					logger.Error().Err(err).Msg("failed to emit log")
+				}
+			}()
 			go func() {
 				_ = sh.EmailHandler(msg)
 				if err := msg.Ack(); err != nil {
@@ -108,16 +109,15 @@ func (s *Subscriber) Run(ctx context.Context) {
 			s.ConnectionReady <- true
 		}
 		go func() {
-			if err := logEmitterInfra.EmitLog("INFO", fmt.Sprintf("subscriber for notification is running: %v", err.Error())); err != nil {
+			if err := logEmitterInfra.EmitLog("INFO", "subscriber for notification is running"); err != nil {
 				logger.Error().Err(err).Msg("failed to emit log")
 			}
 		}()
 		logger.Info().Msg("subscriber for notification is running")
 
 		<-ctx.Done()
-
 		go func() {
-			if err := logEmitterInfra.EmitLog("INFO", fmt.Sprintf("Shutting down subscriber for notification: %v", err.Error())); err != nil {
+			if err := logEmitterInfra.EmitLog("INFO", "Shutting down subscriber for notification"); err != nil {
 				logger.Error().Err(err).Msg("failed to emit log")
 			}
 		}()

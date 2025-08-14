@@ -4,7 +4,7 @@ import (
 	"errors"
 
 	"10.1.20.130/dropping/notification-service/internal/infrastructure/mail"
-	"github.com/dropboks/sharedlib/dto"
+	"10.1.20.130/dropping/sharedlib/dto"
 	"github.com/rs/zerolog"
 	"github.com/spf13/viper"
 )

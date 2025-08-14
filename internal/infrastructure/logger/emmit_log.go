@@ -24,7 +24,7 @@ func NewLoggerInfra(logEmitter pkg.LogEmitter) LoggerInfra {
 func (l *loggerInfra) EmitLog(msgType, msg string) error {
 	if err := l.logEmitter.EmitLog(context.Background(), ld.LogMessage{
 		Type:     msgType,
-		Service:  "notification	_service",
+		Service:  "notification_service",
 		Msg:      msg,
 		Protocol: "SYSTEM",
 	}); err != nil {

@@ -6,7 +6,7 @@ import (
 
 	"10.1.20.130/dropping/notification-service/internal/domain/service"
 	"10.1.20.130/dropping/notification-service/internal/infrastructure/logger"
-	"github.com/dropboks/sharedlib/dto"
+	"10.1.20.130/dropping/sharedlib/dto"
 	"github.com/nats-io/nats.go/jetstream"
 	"github.com/rs/zerolog"
 )

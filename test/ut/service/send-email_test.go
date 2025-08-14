@@ -5,7 +5,7 @@ import (
 
 	"10.1.20.130/dropping/notification-service/internal/domain/service"
 	"10.1.20.130/dropping/notification-service/test/mocks"
-	"github.com/dropboks/sharedlib/dto"
+	"10.1.20.130/dropping/sharedlib/dto"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"
