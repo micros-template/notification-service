@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"10.1.20.130/dropping/notification-service/internal/domain/handler"
-	"10.1.20.130/dropping/notification-service/test/mocks"
+	"github.com/micros-template/notification-service/internal/domain/handler"
+	"github.com/micros-template/notification-service/test/mocks"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"

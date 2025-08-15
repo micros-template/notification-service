@@ -1,15 +1,15 @@
 package di
 
 import (
-	logemitter "10.1.20.130/dropping/notification-service/config/log_emitter"
-	logger "10.1.20.130/dropping/notification-service/config/logger"
-	mail "10.1.20.130/dropping/notification-service/config/mail"
-	mq "10.1.20.130/dropping/notification-service/config/message-queue"
-	"10.1.20.130/dropping/notification-service/internal/domain/handler"
-	"10.1.20.130/dropping/notification-service/internal/domain/service"
-	_logger "10.1.20.130/dropping/notification-service/internal/infrastructure/logger"
-	_mail "10.1.20.130/dropping/notification-service/internal/infrastructure/mail"
-	_mq "10.1.20.130/dropping/notification-service/internal/infrastructure/message-queue"
+	logemitter "github.com/micros-template/notification-service/config/log_emitter"
+	logger "github.com/micros-template/notification-service/config/logger"
+	mail "github.com/micros-template/notification-service/config/mail"
+	mq "github.com/micros-template/notification-service/config/message-queue"
+	"github.com/micros-template/notification-service/internal/domain/handler"
+	"github.com/micros-template/notification-service/internal/domain/service"
+	_logger "github.com/micros-template/notification-service/internal/infrastructure/logger"
+	_mail "github.com/micros-template/notification-service/internal/infrastructure/mail"
+	_mq "github.com/micros-template/notification-service/internal/infrastructure/message-queue"
 	"github.com/nats-io/nats.go/jetstream"
 	"go.uber.org/dig"
 )

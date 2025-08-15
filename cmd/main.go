@@ -6,8 +6,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"10.1.20.130/dropping/notification-service/cmd/bootstrap"
-	"10.1.20.130/dropping/notification-service/cmd/server"
+	"github.com/micros-template/notification-service/cmd/bootstrap"
+	"github.com/micros-template/notification-service/cmd/server"
 )
 
 func main() {

@@ -3,9 +3,9 @@ package service_test
 import (
 	"testing"
 
-	"10.1.20.130/dropping/notification-service/internal/domain/service"
-	"10.1.20.130/dropping/notification-service/test/mocks"
-	"10.1.20.130/dropping/sharedlib/dto"
+	"github.com/micros-template/notification-service/internal/domain/service"
+	"github.com/micros-template/notification-service/test/mocks"
+	"github.com/micros-template/sharedlib/dto"
 	"github.com/rs/zerolog"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/suite"

@@ -3,8 +3,8 @@ package service
 import (
 	"errors"
 
-	"10.1.20.130/dropping/notification-service/internal/infrastructure/mail"
-	"10.1.20.130/dropping/sharedlib/dto"
+	"github.com/micros-template/notification-service/internal/infrastructure/mail"
+	"github.com/micros-template/sharedlib/dto"
 	"github.com/rs/zerolog"
 	"github.com/spf13/viper"
 )

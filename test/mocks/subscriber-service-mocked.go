@@ -1,7 +1,7 @@
 package mocks
 
 import (
-	"10.1.20.130/dropping/sharedlib/dto"
+	"github.com/micros-template/sharedlib/dto"
 	"github.com/stretchr/testify/mock"
 )
 

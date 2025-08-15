@@ -1,10 +1,10 @@
-module 10.1.20.130/dropping/notification-service
+module github.com/micros-template/notification-service
 
 go 1.24.2
 
 require (
-	10.1.20.130/dropping/log-management v0.0.0-20250808075433-1d4dd15b3fc7
-	10.1.20.130/dropping/sharedlib v0.0.0-20250807080415-3baef044f7f4
+	github.com/micros-template/log-service v0.0.0-20250815060440-0eeadb0e7915
+	github.com/micros-template/sharedlib v0.0.0-20250815061634-c3c69004cabb
 	github.com/nats-io/nats.go v1.44.0
 	github.com/rs/zerolog v1.34.0
 	github.com/spf13/viper v1.20.1
@@ -27,7 +27,7 @@ require (
 	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/distribution/reference v0.6.0 // indirect
 	github.com/docker/docker v28.3.3+incompatible // indirect
-	github.com/docker/go-connections v0.5.0 // indirect
+	github.com/docker/go-connections v0.6.0 // indirect
 	github.com/docker/go-units v0.5.0 // indirect
 	github.com/ebitengine/purego v0.8.4 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
