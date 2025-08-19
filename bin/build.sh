@@ -7,7 +7,7 @@ service_name="notification_service"
 full_image_name="docker-registry.anandadf.my.id/micros-template/$service_name"
 
 
-CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build d -ldflags "-s -w" -o "./bin/dist/$service_name" ./cmd
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags "-s -w" -o "./bin/dist/$service_name" ./cmd
 wait
 
 if ! command -v upx >/dev/null 2>&1; then
