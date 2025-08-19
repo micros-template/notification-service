@@ -40,10 +40,9 @@ mail:
   html_root_dir: "./template"
 
 container:
-  notification_service_version: "test"
-  gateway_version: "1.28.0-alpine-slim"
-  nats_version: "2.11.6"
-  mailhog_version: "v1.0.1"
+  notification_service_image: "docker-registry.anandadf.my.id/micros-template/notification_service:test"
+  nats_image: "nats:2.11.6"
+  mailhog_image: "mailhog/mailhog:v1.0.1"
 
 script:
   nats_server: "../mocks/nats/nats-server.conf"

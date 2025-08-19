@@ -80,8 +80,8 @@ github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWE
 github.com/mattn/go-isatty v0.0.20/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
 github.com/micros-template/log-service v0.0.0-20250815060440-0eeadb0e7915 h1:EDmQNns/jcqGBjrIJnIhA/kj7xPN03vpowtyyla7lVU=
 github.com/micros-template/log-service v0.0.0-20250815060440-0eeadb0e7915/go.mod h1:O3RjkOBa50JDVi7uSjfVtpMMxzTJKLBHDjsglhbCd9Q=
-github.com/micros-template/sharedlib v0.0.0-20250815061634-c3c69004cabb h1:shcHeP6pgz3bo6P7eyrm5NDdaqryDg1P9kVIyepuJQo=
-github.com/micros-template/sharedlib v0.0.0-20250815061634-c3c69004cabb/go.mod h1:fTBcNyzD6coZp6+8bvEm80SfkiM6X+VHqnYS2fzaDUU=
+github.com/micros-template/sharedlib v0.0.0-20250819040947-431fcfd155fd h1:69/O/x/Uhvnl7YPSSoGreghaSV5VFE2vLsIpIuGYFgc=
+github.com/micros-template/sharedlib v0.0.0-20250819040947-431fcfd155fd/go.mod h1:PjX1GwmN58vq3zoM9KllM2mGEN9VVnT9yuNvujZ3aOw=
 github.com/moby/docker-image-spec v1.3.1 h1:jMKff3w6PgbfSa69GfNg+zN/XLhfXJGnEx3Nl2EsFP0=
 github.com/moby/docker-image-spec v1.3.1/go.mod h1:eKmb5VW8vQEh/BAr2yvVNvuiJuY6UIocYsFu/DxxRpo=
 github.com/moby/go-archive v0.1.0 h1:Kk/5rdW/g+H8NHdJW2gsXyZ7UnzvJNOy6VKJqueWdcQ=

@@ -4,7 +4,7 @@ go 1.24.2
 
 require (
 	github.com/micros-template/log-service v0.0.0-20250815060440-0eeadb0e7915
-	github.com/micros-template/sharedlib v0.0.0-20250815061634-c3c69004cabb
+	github.com/micros-template/sharedlib v0.0.0-20250819040947-431fcfd155fd
 	github.com/nats-io/nats.go v1.44.0
 	github.com/rs/zerolog v1.34.0
 	github.com/spf13/viper v1.20.1

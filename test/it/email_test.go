@@ -26,9 +26,9 @@ type EmailITSuite struct {
 
 	network                      *testcontainers.DockerNetwork
 	jsConnection                 _mq.Nats
-	natsContainer                *_helper.NatsContainer
+	natsContainer                *_helper.MessageQueueContainer
 	notificationServiceContainer *_helper.NotificationServiceContainer
-	mailHogContainer             *_helper.MailhogContainer
+	mailHogContainer             *_helper.MailContainer
 }
 
 func (e *EmailITSuite) SetupSuite() {
@@ -43,22 +43,57 @@ func (e *EmailITSuite) SetupSuite() {
 	}
 
 	e.network = _helper.StartNetwork(e.ctx)
-
+	cmd := []string{
+		"-c", "/etc/nats/nats.conf",
+		"--name", "nats",
+		"-p", "4221",
+	}
+	natsEnv := map[string]string{
+		"NATS_USER":     viper.GetString("minio.credential.user"),
+		"NATS_PASSWORD": viper.GetString("minio.credential.password"),
+	}
 	// spawn nats
-	nContainer, err := _helper.StartNatsContainer(e.ctx, e.network.Name, viper.GetString("container.nats_version"))
+	nContainer, err := _helper.StartMessageQueueContainer(_helper.MessageQueueParameterOption{
+		Context:            e.ctx,
+		SharedNetwork:      e.network.Name,
+		ImageName:          viper.GetString("container.nats_image"),
+		ContainerName:      "test_nats",
+		MQConfigPath:       viper.GetString("script.nats_server"),
+		MQInsideConfigPath: "/etc/nats/nats.conf",
+		WaitingSignal:      "Server is ready",
+		MappedPort:         []string{"4221:4221/tcp"},
+		Cmd:                cmd,
+		Env:                natsEnv,
+	})
+
 	if err != nil {
 		log.Fatalf("failed starting nats container: %e", err)
 	}
+
 	e.natsContainer = nContainer
 
-	noContainer, err := _helper.StartNotificationServiceContainer(e.ctx, e.network.Name, viper.GetString("container.notification_service_version"))
+	noContainer, err := _helper.StartNotificationServiceContainer(_helper.NotificationServiceParameterOption{
+		Context:       e.ctx,
+		SharedNetwork: e.network.Name,
+		ImageName:     viper.GetString("container.notification_service_image"),
+		ContainerName: "test_notification_service",
+		WaitingSignal: "subscriber for notification is running",
+		Cmd:           []string{"/notification_service"},
+		Env:           map[string]string{"ENV": "test"},
+	})
 	if err != nil {
-		log.Println("make sure the image is exist")
 		log.Fatalf("failed starting notification service container: %e", err)
 	}
 	e.notificationServiceContainer = noContainer
+	mailContainer, err := _helper.StartMailContainer(_helper.MailParameterOption{
+		Context:       e.ctx,
+		SharedNetwork: e.network.Name,
+		ImageName:     viper.GetString("container.mailhog_image"),
+		ContainerName: "mailhog",
+		WaitingSignal: "1025/tcp",
+		MappedPort:    []string{"1025:1025/tcp", "8025:8025/tcp"},
+	})
 
-	mailContainer, err := _helper.StartMailhogContainer(e.ctx, e.network.Name, viper.GetString("container.mailhog_version"))
 	if err != nil {
 		log.Fatalf("failed starting mailhog container: %e", err)
 	}
