@@ -29,9 +29,9 @@ jetstream:
       prefix: "log"
 
 mail:
-  host: "smtp-relay.brevo.com"
-  port: 587
-  username: "904553001@smtp-brevo.com"
-  password: "1zMNTqxYtkQPpOnD"
-  sender: "dropboks@daffapn.my.id"
-  html_root_dir: "./template"
+  host: ""
+  port: 
+  username: ""
+  password: ""
+  sender: ""
+  html_root_dir: ""
